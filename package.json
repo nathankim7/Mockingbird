@@ -1,0 +1,16 @@
+{
+    "name": "top10places",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "version": "1.0.0",
+    "main": "app.js",
+    "dependencies": {
+        "@google/maps": "^0.4.5",
+        "body-parser": "^1.18.2",
+        "express": "^4.16.2",
+        "express-handlebars": "^3.0.0",
+        "jade": "^1.11.0",
+        "twit": "^2.2.9"
+    }
+}
