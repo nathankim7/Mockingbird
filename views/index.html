@@ -9,7 +9,7 @@
        * element that contains the map. */
       #map {
         height: 100%;
-        width:80%;
+        width:77%;
         position:absolute;
         right:0px;
       }
@@ -19,6 +19,7 @@
         width: 100%;
         margin: 0;
         padding: 0;
+        overflow: hidden;
       }
 
       #logo{
@@ -46,17 +47,17 @@
 
       var map;
       var infoWindow;
-      var consumer_key = 'ObvO3l8LZnhDhssFpCJPdCZkD';
-      var consumer_secret = 'dgLEKJdcandsbixvtmOhWhcYc4M5j8tnKLyio0eI921MPFmI7x';
-      var token = btoa(consumer_key + ':' + consumer_secret);
       var curr = 0;
+      var ci = 0;
+      var content = [];
+      var socket;
 
       function initMap() {
         map = new google.maps.Map($('#map')[0], {
           center: {lat: -34.397, lng: 150.644},
           zoom: 15
         });
-        infoWindow = new google.maps.InfoWindow();
+        infoWindow = new google.maps.InfoWindow({maxWidth: 200});
 
         var x = {lat: 0, lng: 0};
 
@@ -73,7 +74,7 @@
             var service = new google.maps.places.PlacesService(map);
             service.nearbySearch({
                 location: x,
-                radius: 500,
+                radius: 1500,
                 type: []
             }, callback);
           }, function() {
@@ -88,8 +89,8 @@
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
         infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
+        'Error: The Geolocation service failed.' :
+        'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
 
@@ -98,7 +99,7 @@
           var arr = [];
 
           for (var i = 0; i < results.length; i++) {
-            createMarker(results[i]);
+            createMarker(results[i], i);
             arr.push([]);
             arr[i].push(curr);
             arr[i].push(i);
@@ -116,25 +117,26 @@
         return a[0] - b[0];
       }
 
-      function createMarker(place) {
+      function createMarker(place, index) {
         var placeLoc = place.geometry.location;
         var marker = new google.maps.Marker({
           map: map,
           position: place.geometry.location
         });
         var temp = {lat: placeLoc.lat(), lng: placeLoc.lng()}
-        var socket = io();
-        var content;
+        console.log('index: ' + index);
         socket.emit('location', temp);
         console.log('request ' + temp);
-        socket.on('text', function(result) {
-          console.log('response: ' + result);
-          content = '<strong>' + place.name + '</strong><br>' + result;
-          console.log('content: ' + content);
+        socket.on('text', function(results) {
+          console.log('response: ' + results.result);
+          content[ci] = '<strong><i>' + place.name + '</i></strong><br>' + results.result;
+          console.log('content: ' + content[ci]);
+          console.log('ci: ' + ci);
+          ci++;
         });
 
         google.maps.event.addListener(marker, 'click', function() {
-          infoWindow.setContent(content);
+          infoWindow.setContent(content[index]);
           infoWindow.open(map, this);
         });
       }
@@ -142,11 +144,11 @@
   </head>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZIRqDmWn_wCUA7Nve57WVTM_dtSKRHJM&libraries=places&callback=initMap" async defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
+  <script src="/socket.io/socket.io.js" onload="socket = io()"></script>
   <body>
     <div id="map"></div>
     <image id= "logo" src="logo.jpg">
-    <p id="topten"> Top 10 most active places in Toronto: </p>
+    <p id="topten">Top 10 most active places in your area:</p>
     <div id="container">
       <p id='1'></p> <br/> 
       <p id='2'></p> <br/> 

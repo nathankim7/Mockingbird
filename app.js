@@ -42,15 +42,15 @@ io.on('connection', function(socket) {
 
   socket.on('location', function(loc) {
       console.log(loc);
-      t.get('search/tweets', { q: 'since:2016-01-01', count: 10, geocode: `${loc.lat},${loc.lng},0.5km` }, function(err, data, response) {
-        var result = '' + Math.random();
+      t.get('search/tweets', { q: '', count: 50, geocode: `${loc.lat},${loc.lng},0.3km` }, function(err, data, response) {
+        var result = '';
 
         for (i = 0; i < data.statuses.length; i++) {
             console.log(data.statuses[i].text);
             result += '<strong>' + data.statuses[i].user.screen_name + '</strong>:' + data.statuses[i].text + '<br>';
         }
 
-        io.emit('text', result);
+        io.emit('text', {cnt: data.statuses.length, result: result});
       });
   });
 });
