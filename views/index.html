@@ -7,7 +7,7 @@
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-       #map {
+      #map {
         height: 100%;
         width:80%;
         position:absolute;
@@ -26,9 +26,10 @@
 
       #topten{
         font-family:"Trebuchet MS", Helvetica, sans-serif ;
+        font-size: 20pt;
         padding: 25px;
         background: #E9EBEB;
-        width: 20%;
+        position: absolute;
       }
 
       #container {
@@ -36,6 +37,7 @@
         font-size: 10pt;
         padding: 20px;
         font-family:"Trebuchet MS", Helvetica, sans-serif;
+        position: absolute;
       }
     </style>
     <script>
@@ -152,9 +154,9 @@
   </script>
   <body>
     <div id="map"></div>
-    <image id= "logo" src="logo.jpg">
-    <p id="topten"> Top 10 most active places in Toronto: </p>
     <div id="container">
+      <image id= "logo" src="logo.jpg">
+      <p id="topten"> Top 10 most active places in Toronto: </p>
       <p id='1'></p> <br/> 
       <p id='2'></p> <br/> 
       <p id='3'></p> <br/> 
