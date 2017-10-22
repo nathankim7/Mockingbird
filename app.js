@@ -2,7 +2,6 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var bodyParser = require('body-parser');
-var index = require('./index.js');
 
 // Define the port to run on
 app.set('port', 3000);
@@ -13,7 +12,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-app.use('/index', index);
+
+app.post('/', function(req, res) {
+    console.log(req.body);
+    res.end('OK');
+});
 
 // Listen for requests
 var server = app.listen(app.get('port'), function() {
