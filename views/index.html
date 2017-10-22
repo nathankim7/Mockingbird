@@ -16,6 +16,7 @@
       /* Optional: Makes the sample page fill the window. */
       html, body {
         height: 100%;
+        width: 100%;
         margin: 0;
         padding: 0;
       }
@@ -26,10 +27,9 @@
 
       #topten{
         font-family:"Trebuchet MS", Helvetica, sans-serif ;
-        font-size: 20pt;
         padding: 25px;
         background: #E9EBEB;
-        position: absolute;
+        width: 20%;
       }
 
       #container {
@@ -37,7 +37,6 @@
         font-size: 10pt;
         padding: 20px;
         font-family:"Trebuchet MS", Helvetica, sans-serif;
-        position: absolute;
       }
     </style>
     <script>
@@ -144,19 +143,11 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZIRqDmWn_wCUA7Nve57WVTM_dtSKRHJM&libraries=places&callback=initMap" async defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script>
-    var socket = io();
-    var visitorData = {
-        referringSite: document.referrer,
-        page: location.pathname
-    }
-    socket.emit('visitor-data', visitorData);
-  </script>
   <body>
     <div id="map"></div>
+    <image id= "logo" src="logo.jpg">
+    <p id="topten"> Top 10 most active places in Toronto: </p>
     <div id="container">
-      <image id= "logo" src="logo.jpg">
-      <p id="topten"> Top 10 most active places in Toronto: </p>
       <p id='1'></p> <br/> 
       <p id='2'></p> <br/> 
       <p id='3'></p> <br/> 
