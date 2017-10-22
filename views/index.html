@@ -122,12 +122,18 @@
           position: place.geometry.location
         });
         var temp = {lat: placeLoc.lat(), lng: placeLoc.lng()}
+        var socket = io();
+        var content;
         socket.emit('location', temp);
+        console.log('request ' + temp);
         socket.on('text', function(result) {
-          infoWindow.setContent('<strong>' + place.name + '</strong><br>' + result);
+          console.log('response: ' + result);
+          content = '<strong>' + place.name + '</strong><br>' + result;
+          console.log('content: ' + content);
         });
 
         google.maps.event.addListener(marker, 'click', function() {
+          infoWindow.setContent(content);
           infoWindow.open(map, this);
         });
       }

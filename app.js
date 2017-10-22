@@ -43,7 +43,7 @@ io.on('connection', function(socket) {
   socket.on('location', function(loc) {
       console.log(loc);
       t.get('search/tweets', { q: 'since:2016-01-01', count: 10, geocode: `${loc.lat},${loc.lng},0.5km` }, function(err, data, response) {
-        var result = '';
+        var result = '' + Math.random();
 
         for (i = 0; i < data.statuses.length; i++) {
             console.log(data.statuses[i].text);
