@@ -75,7 +75,7 @@
             service.nearbySearch({
                 location: x,
                 radius: 1500,
-                type: []
+                type: ['bakery', 'cafe', 'restaurant', 'bar']
             }, callback);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
