@@ -1,4 +1,3 @@
-// require Express and Socket.io
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -28,39 +27,25 @@ app.use(express.static(path.join(__dirname, 'public/')));
 //    2. /about
 //    3. /contact
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'views/index.html'));
+    res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
 io.on('connection', function(socket) {
-  // a user has visited our page - add them to the visitorsData object
-  console.log('connect');
+    socket.on('location', function(loc) {
+        console.log(loc);
+        t.get('search/tweets', { q: '', count: 50, geocode: `${loc.lat},${loc.lng},0.3km` }, function(err, data, response) {
+            var result = '';
 
-  socket.on('disconnect', function() {
-    // a user has left our page - remove them from the visitorsData object
-    console.log('disconnect');
-  });
+            for (i = 0; i < data.statuses.length; i++) {
+                console.log(data.statuses[i].text);
+                result += '<strong>' + data.statuses[i].user.screen_name + '</strong>:' + data.statuses[i].text + '<br>';
+            }
 
-  socket.on('location', function(loc) {
-      console.log(loc);
-      t.get('search/tweets', { q: '', count: 50, geocode: `${loc.lat},${loc.lng},0.3km` }, function(err, data, response) {
-        var result = '';
-
-        for (i = 0; i < data.statuses.length; i++) {
-            console.log(data.statuses[i].text);
-            result += '<strong>' + data.statuses[i].user.screen_name + '</strong>:' + data.statuses[i].text + '<br>';
-        }
-
-        io.emit('text', {cnt: data.statuses.length, result: result});
-      });
-  });
+            io.emit('text', {cnt: data.statuses.length, result: result});
+        });
+    });
 });
 
-t.get('geo/search', { lat: 43.6598948, long: -79.39600940000003, granularity: 'poi', accuracy: 1000000000, max_results: 20 }, function(err, data, response) {
-    for (i = 0; i < data.result.places.length; i++) {
-        console.log(data.result.places[i].id + " " + data.result.places[i].full_name);
-    };
-})
-
 http.listen(app.get('port'), function() {
-  console.log('listening on *:' + app.get('port'));
+    console.log('listening on *:' + app.get('port'));
 });
