@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var io = require('socket.io')(require('http').Server(app));
 var path = require('path');
 var config = require('./config.js');
 var Twit = require('twit')
@@ -41,6 +40,6 @@ io.on('connection', function(socket) {
     });
 });
 
-http.listen(app.get('port'), function() {
+app.listen(app.get('port'), function() {
     console.log('listening on *:' + app.get('port'));
 });
