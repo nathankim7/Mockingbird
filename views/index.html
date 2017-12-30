@@ -5,13 +5,13 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="../public/site.css">
-		<script>
+		<script type="text/javascript">
+			var socket;
 			var map;
 			var infoWindow;
 			var curr = 0;
 			var ci = 0;
 			var content = [];
-			var socket;
 
 			function initMap() {
 				map = new google.maps.Map($('#map')[0], {
@@ -112,16 +112,18 @@
 		<div id="container">
 			<image id= "logo" src="../public/logo.jpg">
 			<p id="topten">Top 10 most active places in your area:</p>
-			<p id='1'></p> 
-			<p id='2'></p> 
-			<p id='3'></p> 
-			<p id='4'></p> 
-			<p id='5'></p>
-			<p id='6'></p> 
-			<p id='7'></p> 
-			<p id='8'></p> 
-			<p id='9'></p> 
-			<p id='10'></p>
+			<div id="list">
+				<p id='1'></p> 
+				<p id='2'></p> 
+				<p id='3'></p> 
+				<p id='4'></p> 
+				<p id='5'></p>
+				<p id='6'></p> 
+				<p id='7'></p> 
+				<p id='8'></p> 
+				<p id='9'></p> 
+				<p id='10'></p>
+			</div>
 		</div> 
 		<div id="map"></div>
 	</body>

@@ -17,15 +17,7 @@ var t = new Twit({
 var curLoc;
 
 app.set('port', (process.env.PORT || 3000));
-
-// serve the static assets (js/dashboard.js and css/dashboard.css)
-// from the public/ directory
 app.use(express.static(path.join(__dirname, 'public/')));
-
-// serve the index.html page when someone visits any of the following endpoints:
-//    1. /
-//    2. /about
-//    3. /contact
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/index.html'));
 });
@@ -41,7 +33,10 @@ io.on('connection', function(socket) {
                 result += '<strong>' + data.statuses[i].user.screen_name + '</strong>:' + data.statuses[i].text + '<br>';
             }
 
-            io.emit('text', {cnt: data.statuses.length, result: result});
+            io.emit('text', {
+                cnt: data.statuses.length,
+                result: result
+            });
         });
     });
 });
