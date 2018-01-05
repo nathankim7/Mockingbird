@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div id="container">
+			<image id= "logo" src="/images/logo.png">
+			<div id="text">
+        <p id="topten">Top 10 most active places in your area:</p>
+		  	<div id="list">
+          <% y.forEach(() => { %>
+            <p>temp</p>
+          <% }); %>
+		  	</div>
+      </div>
+		</div> 
+    <div id="map"></div>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZIRqDmWn_wCUA7Nve57WVTM_dtSKRHJM&libraries=places"></script>
+    <script src="/javascripts/main.js"></script>
+  </body>
+</html>

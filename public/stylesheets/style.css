@@ -1,0 +1,65 @@
+@font-face {
+  font-family: "Aktiv Grotesk";
+  src: url("../fonts/AktivGrotesk-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Aktiv Grotesk";
+  src: url('../fonts/AktivGrotesk-Bold.ttf');
+  font-weight: bold;
+}
+
+html, body {
+  height: 100%;
+  margin: 0%;
+  overflow-y: hidden;
+}
+
+body {
+  font-weight: bold;
+  font: 18px "Aktiv Grotesk", Helvetica, Arial, sans-serif;
+}
+
+#container {
+  position: absolute;
+  max-width: 22%;
+  height: 100%;
+  background: #003b3b;
+  text-align: center;
+  color: bisque;
+  overflow: auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+#topten {
+  background: #004d4d;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin: 0%;
+}
+
+#logo {
+  max-width: 100%;
+  height: auto;
+  background: white;
+  margin-top: 20px;
+}
+
+#map {
+  height: 100%;
+  left: 22%;
+  position: absolute;
+  width: auto;
+  right: 0px;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#list > p {
+  border: 3px solid red;
+}
